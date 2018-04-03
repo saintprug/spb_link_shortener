@@ -4,4 +4,4 @@
 # Example:
 # get '/hello', to: ->(env) { [200, {}, ['Hello from Hanami!']] }
 root to: 'dashboard#index'
-post '/links', to: 'links#create'
+resources :links, only: %i[create]
