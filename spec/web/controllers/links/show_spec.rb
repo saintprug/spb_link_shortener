@@ -1,9 +1,9 @@
 RSpec.describe Web::Controllers::Links::Show do
-  let(:action) { described_class.new(repo: link_repo) }
+  let(:action) { described_class.new(operation: operation) }
   let(:params) { Hash[id: 1] }
-  let(:link_repo) { double(:link_repo, find_by_key: entity) }
+  let(:operation) { ->(_) { entity } }
 
-  context 'when link exist' do
+  context 'when link exist' do 
     let(:entity) { Link.new(url: 'google.com') }
 
     it { expect(action.call(params)).to redirect_to('google.com') }
@@ -19,9 +19,10 @@ RSpec.describe Web::Controllers::Links::Show do
   end
 
   context 'when action calls real repository' do
-    let(:link_repo) { LinkRepository.new }
+    let(:action) { described_class.new }
     let(:params) { Hash[id: link.key] }
     let(:link) { link_repo.create(key: '123', url: 'google.com') }
+    let(:link_repo) { LinkRepository.new }
 
     after { link_repo.clear }
 
