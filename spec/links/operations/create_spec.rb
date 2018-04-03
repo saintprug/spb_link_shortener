@@ -1,5 +1,6 @@
 RSpec.describe Links::Operations::Create do
-  let(:operation) { described_class.new(repo: link_repo) }
+  let(:operation) { described_class.new(repo: link_repo, key_generator: key_generator) }
+  let(:key_generator) { -> { '123' } }
   let(:link_repo) { double(:link_repo, create: Link.new, find_by_url: link) }
 
   subject { operation.call(link: 'google.com') }
@@ -28,5 +29,6 @@ RSpec.describe Links::Operations::Create do
     after { LinkRepository.new.clear }
 
     it { expect { subject }.to change { LinkRepository.new.all.count }.by(1) }
+    it { expect(subject.key.size).to eq 5 }
   end
 end
