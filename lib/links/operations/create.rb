@@ -8,8 +8,12 @@ module Links
       end
 
       def call(payload)
-        payload[:key] = '123'
-        repo.create(payload)
+        if link = repo.find_by_url(payload[:link])
+          repo.update(link.id, payload)
+        else
+          payload[:key] = '123'
+          repo.create(payload)
+        end
       end
     end
   end
