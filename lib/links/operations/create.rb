@@ -9,7 +9,7 @@ module Links
       end
 
       def call(payload)
-        if link = repo.find_by_url(payload[:link])
+        if link = repo.find_by_url(payload[:url])
           repo.update(link.id, payload)
         else
           payload[:key] = key_generator.call
