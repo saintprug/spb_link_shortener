@@ -4,7 +4,7 @@ RSpec.describe Admin::Views::Dashboard::Index, type: :view do
   let(:view)      { described_class.new(template, exposures) }
   let(:rendered)  { view.render }
 
-  it 'exposes #format' do
+  it 'exposes #format', :with_mocks do
     expect(view.format).to eq exposures.fetch(:format)
   end
 end
