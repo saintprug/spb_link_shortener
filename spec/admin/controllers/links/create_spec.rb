@@ -2,7 +2,7 @@ RSpec.describe Admin::Controllers::Links::Create, type: :action do
   let(:action) { described_class.new(operation: operation) }
   let(:operation) { -> (_) { } }
 
-  context 'when params valid' do
+  context 'when params valid', :with_mocks do
     let(:params) { { link: { url: 'google.com' } } }
 
     it 'calls operation' do
@@ -13,7 +13,7 @@ RSpec.describe Admin::Controllers::Links::Create, type: :action do
     it { expect(action.call(params)).to redirect_to '/admin' }
   end
 
-  context 'when params invalid' do
+  context 'when params invalid', :with_mocks do
     let(:params) { {} }
 
     it 'does not call operation' do

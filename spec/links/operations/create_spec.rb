@@ -5,7 +5,7 @@ RSpec.describe Links::Operations::Create do
 
   subject { operation.call(link: 'google.com') }
 
-  context 'when link exist in db' do
+  context 'when link exist in db', :with_mocks do
     let(:link) { Link.new(id: 1) }
 
     it 'update existed link repository with generated key' do
@@ -14,7 +14,7 @@ RSpec.describe Links::Operations::Create do
     end
   end
 
-  context 'when link not exist in db' do
+  context 'when link not exist in db', :with_mocks do
     let(:link) { nil }
 
     it 'calls repository with generated key' do
@@ -23,7 +23,7 @@ RSpec.describe Links::Operations::Create do
     end
   end
 
-  context 'with real repository' do
+  context 'with real repository', :without_mocks do
     let(:operation) { described_class.new }
 
     after { LinkRepository.new.clear }

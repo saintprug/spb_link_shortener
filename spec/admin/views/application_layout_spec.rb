@@ -5,7 +5,7 @@ RSpec.describe Admin::Views::ApplicationLayout, type: :view do
   let(:rendered) { layout.render }
   let(:template) { Hanami::View::Template.new('apps/admin/templates/application.html.slim') }
 
-  it 'contains application name' do
+  it 'contains application name', :with_mocks do
     expect(rendered).to include('Admin')
   end
 end
